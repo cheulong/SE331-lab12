@@ -9,7 +9,10 @@ import {User} from "../user";
 })
 export class UserComponent implements OnInit {
   user:any={};
-
+  roles:Array<string>=['Admin','User'];
+  public refreshValue(value:any):void{
+    this.user.role=value.text;
+  }
 
   constructor() {
   };

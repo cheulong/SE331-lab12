@@ -21,6 +21,7 @@ import java.util.Optional;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 @JsonIgnoreType
+@EqualsAndHashCode
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

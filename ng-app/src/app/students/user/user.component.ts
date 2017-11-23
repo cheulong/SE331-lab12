@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 import {User} from "../user";
+import {StudentsDataService} from "../../service/students-data.service";
+import {Router} from "@angular/router";
+import {Student} from "../student";
 
 @Component({
   selector: 'app-user',
@@ -8,22 +11,52 @@ import {User} from "../user";
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  user:any={};
-  roles:Array<string>=['Admin','User'];
-  public refreshValue(value:any):void{
-    this.user.role=value.text;
+  user: any = {};
+  student: any = {};
+  roles: Array<string> = ['Admin', 'User'];
+
+  public refreshValue(value: any): void {
+    this.user.role = value.text;
   }
 
-  constructor() {
+  constructor(private studentDataService: StudentsDataService, private router: Router) {
   };
 
   ngOnInit() {
-    this.user= new User();
+    this.student = new Student();
+    this.user = new User();
+  }
+  upQuantity(student: Student) {
+    student.penAmount++;
+  }
+
+  downQuantity(student: Student) {
+    if (student.penAmount > 0)
+      student.penAmount--;
+  }
+  @ViewChild('fileInput') inputEl: ElementRef;
+  addStudent(student: Student) {
+    let result: Student;
+    console.log(student);
+    let inputEl: HTMLInputElement = this.inputEl.nativeElement;
+    this.studentDataService.addStudentWithAuthen(student, inputEl.files.item(0),this.user)
+      .subscribe(resultStudent => {
+        result = resultStudent;
+        if (result != null) {
+          this.router.navigate(['/list']);
+        } else {
+          alert('Error in adding the student');
+        }
+      });
+  }
+
+  onFileChange(event, student: any) {
+    var filename = event.target.files[0].name;
+    console.log(filename);
+    student.image = filename;
   }
 
 
-
-
-
-
 }
+
+

@@ -24,4 +24,7 @@ export class StudentsDataService {
   findStudent(search:string){
     return null;
   }
+  addStudentWithAuthen(student:Student,imageFile:any,user:any){
+    return null;
+  }
 }

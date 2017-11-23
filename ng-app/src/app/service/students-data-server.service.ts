@@ -72,5 +72,23 @@ export class StudentsDataServerService {
           })
       });
   }
-
+  addStudentWithAuthen(student:Student,file:any,user:any){
+    let formData=new FormData();
+    let fileName:string;
+    formData.append('file',file);
+    let header=new Headers({'Authorization':'Bearer '+ this.authenticationService.getToken()});
+    let options=new RequestOptions({headers: header});
+    return this.http.post('http://localhost:8080/student/image', formData, options)
+      .flatMap(filename=>{
+        header.append('Conetent-Type','application/json');
+        let options=new RequestOptions({headers:header});
+        user.student=student;
+        let body=JSON.stringify(user);
+        return this.http.post('http://localhost:8080/studentAuthen',body,options)
+          .map(res=>{
+            return res.json();
+          })
+      }
+      );
+  }
 }

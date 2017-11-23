@@ -2,6 +2,8 @@ package camt.cbsd.lab05.security.service;
 
 
 
+import camt.cbsd.lab05.entity.security.Authority;
+import camt.cbsd.lab05.entity.security.AuthorityName;
 import camt.cbsd.lab05.entity.security.User;
 import camt.cbsd.lab05.security.JwtUserFactory;
 import camt.cbsd.lab05.security.repository.UserRepository;

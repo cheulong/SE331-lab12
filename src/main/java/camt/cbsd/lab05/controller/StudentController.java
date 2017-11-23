@@ -1,7 +1,10 @@
 package camt.cbsd.lab05.controller;
 
+import camt.cbsd.lab05.config.json.View;
+import camt.cbsd.lab05.entity.RegisterEntity;
 import camt.cbsd.lab05.entity.Student;
 import camt.cbsd.lab05.service.StudentService;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,6 +116,12 @@ public class StudentController {
             //http code 204
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
+    }
+    @JsonView(View.Login.class)
+    @PostMapping("/studentAuthen")
+    public Student uploadStudentAuthen(@RequestBody RegisterEntity user){
+        Student student=studentService.addStudent(user);
+        return student;
     }
 
 }

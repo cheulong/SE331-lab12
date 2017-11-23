@@ -1,5 +1,6 @@
 package camt.cbsd.lab05;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
